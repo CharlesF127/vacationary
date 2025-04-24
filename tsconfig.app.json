@@ -11,7 +11,10 @@
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",
-    "noEmit": true,
+    "noEmit": false,                 // CHANGED: allow emit (required for composite)
+    "composite": true,              // ✅ REQUIRED for project references
+    "emitDeclarationOnly": true,    // ✅ Optional: prevents JS output but satisfies compiler
+
     "jsx": "react-jsx",
 
     /* Linting */
