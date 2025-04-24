@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import HotelResults from './src/pages/HotelResults';
+import HotelResults from '../src/pages/HotelResults';
 
 describe('HotelResults', () => {
   it('renders loading state initially', () => {
