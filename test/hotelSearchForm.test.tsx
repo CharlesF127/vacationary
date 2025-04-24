@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import HotelSearchForm from './src/components/HotelSearchForm';
+import HotelSearchForm from '../src/components/HotelSearchForm';
 import { toast } from 'sonner';
 import React from 'react';
 
