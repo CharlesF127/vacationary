@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import FlightResults from './src/pages/FlightResults';
+import FlightResults from '../src/pages/FlightResults';
 
 describe('FlightResults', () => {
   it('renders loading state initially', () => {
