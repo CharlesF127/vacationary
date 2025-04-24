@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import FlightSearchForm from './src/components/FlightSearchForm';
+import FlightSearchForm from '../src/components/FlightSearchForm';
 import { toast } from 'sonner';
 import React from 'react';
 import '@testing-library/jest-dom';
