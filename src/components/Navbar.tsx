@@ -12,7 +12,7 @@ const Navbar = () => {
 
   // Check for sign-in status on initial load
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
+    const storedUser = JSON.parse(localStorage.getItem('user'));
     if (storedUser) {
       setIsSignedIn(true);
     }
@@ -28,7 +28,7 @@ const Navbar = () => {
   };
 
   const handleSignIn = () => {
-    localStorage.setItem('user', JSON.stringify({ name: 'Guest User', signedIn: true }));
+    localStorage.setItem('user', JSON.stringify({ name: "user", signedIn: true }));
     setIsSignedIn(true);
     toast({
       title: 'Signed In',
@@ -46,11 +46,33 @@ const Navbar = () => {
   };
 
   const handleDeals = () => {
-    toast({
-      title: 'Deals',
-      description: 'Special deals and offers coming soon!',
-    });
+    navigate('/deals');
+    setIsMenuOpen(false); // optional: close mobile menu if open
   };
+  const handleCreateAlert = () => {
+    navigate('/create-alert');
+    setIsMenuOpen(false); // optional: close mobile menu if open  
+  };
+
+  const handleProfile = () => {
+    navigate('/profile');
+    setIsMenuOpen(false); // optional: close mobile menu if open
+  };
+  const handleFlightResults = () => {
+    navigate('/flight-results');
+    setIsMenuOpen(false); // optional: close mobile menu if open
+  };
+  const handleHotelResults = () => {
+    navigate('/hotel-results');
+    setIsMenuOpen(false); // optional: close mobile menu if open    
+
+  };
+  const handlePackageResults = () => {
+    navigate('/package-results');
+    setIsMenuOpen(false); // optional: close mobile menu if open
+  };     
+
+  
 
   return (
     <nav className="bg-white shadow-sm py-3 sticky top-0 z-50">
@@ -73,7 +95,7 @@ const Navbar = () => {
             <NavLink onClick={() => handleNavigation('/flight-results')} label="Flights" />
             <NavLink onClick={() => handleNavigation('/hotel-results')} label="Hotels" />
             <NavLink onClick={() => handleNavigation('/package-results')} label="Packages" />
-            <NavLink onClick={handleDeals} label="Deals" hasDropdown />
+            <NavLink onClick={() => handleNavigation('/deals')} label="Deals"  />
           </div>
           <div className="flex items-center space-x-2">
             <Button
@@ -92,15 +114,14 @@ const Navbar = () => {
             >
               <User size={18} className="text-travel-gray" />
             </Button>
-            {isSignedIn ? (
-              <Button className="bg-red-500 hover:bg-red-600 text-white" onClick={handleSignOut}>
-                Sign Out
-              </Button>
-            ) : (
-              <Button className="bg-travel-blue hover:bg-travel-blue-dark text-white" onClick={handleSignIn}>
+            
+              <Button className="bg-red-500 hover:bg-red-600 text-white" onClick={() => navigate('/signin')}>
                 Sign In
+                
               </Button>
-            )}
+           
+  
+            
           </div>
         </div>
 

@@ -32,6 +32,30 @@ const FlightResults = () => {
   const departDateStr = searchParams.get('departDate') || '';
   const returnDateStr = searchParams.get('returnDate') || '';
   const passengers = parseInt(searchParams.get('passengers') || '1', 10);
+
+  const handleCheckout = async ( name: string, price: number
+  ) => {
+    const response = await fetch("/api/create-checkout-session", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        items: [
+          {
+
+  
+            name,
+            price, // Price in USD
+            quantity: 1,
+          },
+        ],
+      }),
+    });
+
+    const { url } = await response.json();
+    window.location.href = url; // Redirect to Stripe Checkout
+  };
   
   useEffect(() => {
     const fetchFlights = async () => {
@@ -278,7 +302,7 @@ const FlightResults = () => {
                       <div className="text-right">
                         <div className="font-bold text-xl text-travel-blue">${flight.price}</div>
                         <div className="text-gray-500 text-sm">per person</div>
-                        <Button className="mt-2 bg-travel-blue hover:bg-travel-blue-dark text-white">
+                        <Button onClick = {() => handleCheckout(flight.destination, flight.price)} className="mt-2 bg-travel-blue hover:bg-travel-blue-dark text-white">
                           Select
                         </Button>
                       </div>

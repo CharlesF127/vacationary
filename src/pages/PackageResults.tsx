@@ -47,6 +47,31 @@ const PackageResults = () => {
     });
   };
 
+  const handleCheckout = async ( name: string, price: number
+  ) => {
+    const response = await fetch("/api/create-checkout-session", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        items: [
+          {
+
+  
+            name,
+            price, // Price in USD
+            quantity: 1,
+          },
+        ],
+      }),
+    });
+
+    const { url } = await response.json();
+    window.location.href = url; // Redirect to Stripe Checkout
+  };
+
+
   useEffect(() => {
     const fetchPackages = async () => {
       if (!origin || !destination || !departDateStr || !returnDateStr) {
@@ -274,7 +299,7 @@ const PackageResults = () => {
                             </button>
                           </div>
                           <div className="mt-3 sm:mt-0">
-                            <Button className="bg-travel-blue hover:bg-travel-blue-dark text-white">View Deal</Button>
+                            <Button onClick={() => handleCheckout(pkg.destination, pkg.price)} className="bg-travel-blue hover:bg-travel-blue-dark text-white">View Deal</Button>
                           </div>
                         </div>
                       </div>

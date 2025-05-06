@@ -1,9 +1,8 @@
-
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   User, Bell, Settings, Heart, ClipboardList, 
-  CreditCard, ArrowRight, Trash2, PlusCircle
+  CreditCard, Trash2, PlusCircle
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -16,12 +15,12 @@ import {
   getPriceAlerts, 
   updateUserPreferences,
   deletePriceAlert,
-  togglePriceAlert,
-  PriceAlert 
+  togglePriceAlert 
 } from '@/services/userService';
 import { toast } from 'sonner';
 
-const Profile = () => {
+
+const Profile1 = () => {
   const [user, setUser] = useState(getCurrentUser());
   const [alerts, setAlerts] = useState(getPriceAlerts());
   
@@ -81,8 +80,36 @@ const Profile = () => {
   const handleDeleteAlert = (alertId: string) => {
     deletePriceAlert(alertId);
     setAlerts(getPriceAlerts());
-    toast.success('Price alert removed');
+    toast.success('Price alert deleted');
   };
+
+  // Fetch updated user data on mount
+  useEffect(() => {
+    const fetchUser = async () => {
+      const currentUser = getCurrentUser();
+      setUser(currentUser);
+      setAlerts(getPriceAlerts());
+    };
+    
+    fetchUser();
+  }
+  , []);
+
+  // Update user preferences when user data changes
+  useEffect(() => {
+    if (user) {
+      updateUserPreferences(user.preferences);
+    }
+  }
+  , [user]);
+
+  // Handle updating user preferences
+    const handleUpdatePreferences = (preferences: any) => {
+    const updatedUser = updateUserPreferences(preferences);
+    setUser(updatedUser);
+    toast.success('Preferences updated successfully');
+  };
+
   
   // Handle toggling a price alert
   const handleToggleAlert = (alertId: string) => {
@@ -451,4 +478,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Profile1;
