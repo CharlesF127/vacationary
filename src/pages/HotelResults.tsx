@@ -32,6 +32,30 @@ const HotelResults = () => {
   const rooms = parseInt(searchParams.get('rooms') || '1', 10);
   const guests = parseInt(searchParams.get('guests') || '2', 10);
 
+  const handleCheckout = async ( name: string, price: number
+  ) => {
+    const response = await fetch("/api/create-checkout-session", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        items: [
+          {
+
+  
+            name,
+            price, // Price in USD
+            quantity: 1,
+          },
+        ],
+      }),
+    });
+
+    const { url } = await response.json();
+    window.location.href = url; // Redirect to Stripe Checkout
+  };
+
   const handleSetAlert = (hotel: HotelOption) => {
     createPriceAlert({
       userId: 'user-1',
@@ -245,12 +269,12 @@ const HotelResults = () => {
                           <div>
                             <div className="font-bold text-xl text-travel-blue">${hotel.price}</div>
                             <div className="text-gray-500 text-sm">per night</div>
-                            <button onClick={() => handleSetAlert(hotel)} className="text-travel-blue text-sm hover:underline mt-1">
+                            <button className="text-travel-blue text-sm hover:underline mt-1">
                               Set Price Alert
                             </button>
                           </div>
                           <div className="mt-3 sm:mt-0">
-                            <Button className="bg-travel-blue hover:bg-travel-blue-dark text-white">View Deal</Button>
+                            <Button onClick= {() => handleCheckout(hotel.location, hotel.price)}className="bg-travel-blue hover:bg-travel-blue-dark text-white">View Deal</Button>
                           </div>
                         </div>
                       </div>

@@ -9,13 +9,19 @@
     "paths": {
       "@/*": ["./src/*"]
     },
+    "jsx": "react-jsx", // For React 17+ (use "react" for older versions)
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "types": ["jest", "react", "react-dom", "node"],
     "noImplicitAny": false,
     "noUnusedParameters": false,
-    "skipLibCheck": true,
+    
     "allowJs": true,
     "noUnusedLocals": false,
     "strictNullChecks": false,
-    "types": ["jest", "node"]
+   
+    "outDir": "./dist" // Specify a separate directory for compiled files
   },
-  "include": ["src", "jest.setup.ts"]
+  "include": ["src/**/*", "server.js"], // Include all files in the src directory
+  "exclude": ["node_modules", "dist"] // Exclude node_modules and the output directory
 }

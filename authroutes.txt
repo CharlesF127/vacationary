@@ -1,0 +1,5 @@
+Authroutes code in server.js:
+
+app.use('/auth', authRoutes);
+
+preferences for Profile.tsx
